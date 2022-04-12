@@ -19,24 +19,28 @@ public class Main : MonoBehaviour {
 
 	private GameObject player;
 	private Rigidbody playerRigidBody;
+
+	void Awake(){
+		// Application.targetFrameRate=30;
+	}
 	void Start () {
-		// createMap();
+		createMap();
 		createPlayer();
 
 	}
 	
 	void createMap(){
 		map = GameObject.Find("Map");
-		createCannotDestroyWallAndFloor();
+		// createCannotDestroyWallAndFloor();
 	}
 
 	void createPlayer(){
 			player=(GameObject) Instantiate(Resources.Load("Prefabs/Player"),new Vector3(0f,0f,0f),
 				Quaternion.identity);
-			player.transform.SetParent(this.gameObject.transform);
+			player.transform.SetParent(this.map.transform);
 			player.transform.localEulerAngles = new Vector3(player.transform.rotation.x,player.transform.rotation.y+90,player.transform.rotation.z);
 			initPlayerPos();
-			playerRigidBody = GetComponent<Rigidbody>();
+			playerRigidBody = player.GetComponent<Rigidbody>();
 	}
 
 	void initPlayerPos(){
@@ -113,5 +117,26 @@ public class Main : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void FixedUpdate(){
+		MovePlayer();
+	}
+
+	void MovePlayer(){
+
+		if(Input.GetKey(KeyCode.W)){
+			playerRigidBody.MovePosition(player.transform.position+Vector3.forward*0.05f);
+		}
+		if(Input.GetKey(KeyCode.S)){
+			playerRigidBody.MovePosition(player.transform.position+Vector3.back*0.05f);
+		}
+		if(Input.GetKey(KeyCode.A)){
+			playerRigidBody.MovePosition(player.transform.position+Vector3.left*0.05f);
+		}
+		if(Input.GetKey(KeyCode.D)){
+			playerRigidBody.MovePosition(player.transform.position+Vector3.right*0.05f);
+		}
+	
 	}
 }
