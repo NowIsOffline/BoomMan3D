@@ -8,6 +8,7 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	const int FLOOR_WIDTH_NUM = 23;
 	const int FLOOR_HEIGHT_NUM = 23;
+	const float PLAYER_MOVE_SPEED= 0.1f;
 	
 	const int AROUND_WALL_HEIGHT_NUM = 2;
 	private GameObject map;
@@ -19,6 +20,7 @@ public class Main : MonoBehaviour {
 
 	private GameObject player;
 	private Rigidbody playerRigidBody;
+	private  Transform towards;
 
 	void Awake(){
 		// Application.targetFrameRate=30;
@@ -41,6 +43,8 @@ public class Main : MonoBehaviour {
 			player.transform.localEulerAngles = new Vector3(player.transform.rotation.x,player.transform.rotation.y+90,player.transform.rotation.z);
 			initPlayerPos();
 			playerRigidBody = player.GetComponent<Rigidbody>();
+			playerRigidBody.freezeRotation=true;//静止碰撞旋转
+			towards = player.transform;
 	}
 
 	void initPlayerPos(){
@@ -124,19 +128,26 @@ public class Main : MonoBehaviour {
 	}
 
 	void MovePlayer(){
-
-		if(Input.GetKey(KeyCode.W)){
-			playerRigidBody.MovePosition(player.transform.position+Vector3.forward*0.05f);
-		}
-		if(Input.GetKey(KeyCode.S)){
-			playerRigidBody.MovePosition(player.transform.position+Vector3.back*0.05f);
-		}
-		if(Input.GetKey(KeyCode.A)){
-			playerRigidBody.MovePosition(player.transform.position+Vector3.left*0.05f);
-		}
-		if(Input.GetKey(KeyCode.D)){
-			playerRigidBody.MovePosition(player.transform.position+Vector3.right*0.05f);
-		}
+	 	float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxis("Horizontal");
+		if(v!=0||h!=0){
+			Transform towards = player.transform;
+            Vector3 tempTowards =Vector3.forward;
+			if(v!=0){
+				playerRigidBody.MovePosition(player.transform.position+Vector3.forward*PLAYER_MOVE_SPEED*v);
+				tempTowards=v>0?Vector3.forward:-Vector3.forward;
+			}
+			if(h!=0){
+				playerRigidBody.MovePosition(player.transform.position+Vector3.right*PLAYER_MOVE_SPEED*h);
+				tempTowards=h>0?Vector3.right:-Vector3.right;
+			}
 	
+			Quaternion q = Quaternion.LookRotation(tempTowards);
+            //平滑转向
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, q, 10f * Time.deltaTime);
+		}
+		
+       
+        
 	}
 }
