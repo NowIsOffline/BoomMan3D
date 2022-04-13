@@ -1,9 +1,10 @@
 using ConstantsSpace;
 
 using UnityEngine;
+using static UnityEngine.Object;
 namespace BoomManHelper
 {
-    class CreateMapHelper : MonoBehaviour
+    class CreateMapHelper 
     {
 
         private GameObject map;

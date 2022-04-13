@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Object;
 using ConstantsSpace;
 namespace Player
 {
-    class PlayerController : MonoBehaviour
+    class PlayerController
     {
         private GameObject _map;
         private GameObject _initPos;
