@@ -3,10 +3,11 @@
 # =============== #
 BoomMan3D/Temp/
 BoomMan3D/Obj/
+BoomMan3D/Logs/
 BoomMan3D/UnityGenerated/
 BoomMan3D/Library/
 BoomMan3D/Assets/AssetStoreTools*
-
+BoomMan3D/UserSettings/Layouts/default-2021.dwlt
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
