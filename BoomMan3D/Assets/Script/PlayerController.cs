@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Object;
-using ConstantsSpace;
+using static ConstantsSpace.PlayerConstants;
 namespace Player
 {
     class PlayerController
@@ -41,12 +41,12 @@ namespace Player
                 Vector3 tempTowards = Vector3.forward;
                 if (v != 0)
                 {
-                    playerRigidBody.MovePosition(player.transform.position + Vector3.forward * Constants.PLAYER_MOVE_SPEED * v);
+                    playerRigidBody.MovePosition(player.transform.position + Vector3.forward * PLAYER_MOVE_SPEED * v);
                     tempTowards = v > 0 ? Vector3.forward : -Vector3.forward;
                 }
                 if (h != 0)
                 {
-                    playerRigidBody.MovePosition(player.transform.position + Vector3.right * Constants.PLAYER_MOVE_SPEED * h);
+                    playerRigidBody.MovePosition(player.transform.position + Vector3.right * PLAYER_MOVE_SPEED * h);
                     tempTowards = h > 0 ? Vector3.right : -Vector3.right;
                 }
                 Quaternion q = Quaternion.LookRotation(tempTowards);

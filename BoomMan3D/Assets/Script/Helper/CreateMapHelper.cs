@@ -1,7 +1,7 @@
-using ConstantsSpace;
 
 using UnityEngine;
 using static UnityEngine.Object;
+using static ConstantsSpace.Constants;
 namespace BoomManHelper
 {
     class CreateMapHelper 
@@ -30,7 +30,7 @@ namespace BoomManHelper
             wallOnTheFloorContain = new GameObject();
             wallOnTheFloorContain.name = "WallOnTheFloorContain";
             wallOnTheFloorContain.transform.SetParent(map.transform);
-            for (int i = 1; i <= Constants.FLOOR_WIDTH_NUM; i++)
+            for (int i = 1; i <= FLOOR_WIDTH_NUM; i++)
             {
                 createCannotDestroyColWallAndFloor(i);
             }
@@ -38,9 +38,9 @@ namespace BoomManHelper
 
         void createCannotDestroyColWallAndFloor(int col)
         {
-            for (int i = 1; i <= Constants.FLOOR_HEIGHT_NUM; i++)
+            for (int i = 1; i <= FLOOR_HEIGHT_NUM; i++)
             {
-                bool isFinalOrStart = i == 1 || col == 1 || col == Constants.FLOOR_WIDTH_NUM || i == Constants.FLOOR_HEIGHT_NUM;
+                bool isFinalOrStart = i == 1 || col == 1 || col ==FLOOR_WIDTH_NUM || i == FLOOR_HEIGHT_NUM;
                 if (isFinalOrStart)
                 {//创建周围墙体
                     createAroundWall(col, i);
@@ -77,7 +77,7 @@ namespace BoomManHelper
 
         void createAroundWall(int col, int row)
         {
-            for (int i = 1; i <= Constants.AROUND_WALL_HEIGHT_NUM; i++)
+            for (int i = 1; i <= AROUND_WALL_HEIGHT_NUM; i++)
             {
                 GameObject cube2 = (GameObject)Instantiate(Resources.Load("Prefabs/MapCannotDestroyWallCube_Normal"), new Vector3(col * 1, i * 1 + 1, row * 1),
                 Quaternion.identity);
