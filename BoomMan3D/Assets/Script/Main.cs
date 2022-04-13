@@ -7,15 +7,13 @@ using Player;
 public class Main : MonoBehaviour
 {
     // Use this for initialization
-    private GameObject map;
     private PlayerController playerController;
     void Awake()
     {
     }
     void Start()
     {
-        map = GameObject.Find("Map");
-        this.playerController = new PlayerController(this.map, GameObject.Find("PlayerInitPos_0"));
+        this.playerController = new PlayerController();
     }
     // Update is called once per frame
     void Update()

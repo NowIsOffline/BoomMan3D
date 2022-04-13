@@ -5,19 +5,16 @@ using UnityEngine;
 using ConstantsSpace;
 namespace Player
 {
-
-    
     class PlayerController : MonoBehaviour
     {
         private GameObject _map;
         private GameObject _initPos;
         private GameObject player;
         private Rigidbody playerRigidBody;
-        private Transform towards;
-        public PlayerController(GameObject map, GameObject initPos)
+        public PlayerController()
         {
-            this._map = map;
-            this._initPos = initPos;
+            this._map = GameObject.Find("Map");
+            this._initPos = GameObject.Find("PlayerInitPos_0");
             player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(0f, 0f, 0f),
         Quaternion.identity);
             player.transform.SetParent(this._map.transform);
@@ -25,7 +22,7 @@ namespace Player
             initPlayerPos();
             playerRigidBody = player.GetComponent<Rigidbody>();
             playerRigidBody.freezeRotation = true;//静止碰撞旋转
-            towards = player.transform;
+
         }
         void initPlayerPos()
         {
