@@ -13,7 +13,7 @@ public class Main : MonoBehaviour
     }
     void Start()
     {
-      player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(0f, 0f, 0f),
+      player = (GameObject)Instantiate(Resources.Load(Constants.PLAYER_PREFAB_PATH), new Vector3(0f, 0f, 0f),
         Quaternion.identity);
     }
     // Update is called once per frame

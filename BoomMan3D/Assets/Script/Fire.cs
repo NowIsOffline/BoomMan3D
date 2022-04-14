@@ -7,18 +7,19 @@ public class Fire : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         StartCoroutine("deleteFire");
+        StartCoroutine("deleteFire");
     }
 
-    IEnumerator deleteFire(){
-         yield return new WaitForSeconds(.5f);
+    IEnumerator deleteFire()
+    {
+        yield return new WaitForSeconds(.5f);
         Destroy(this.gameObject);
     }
 
-  private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
-        if(other.tag=="MapCanDestroyWallCube_Normal"){
+        if (other.tag == "CanDestroyWall")
+        {
             Destroy(other.gameObject);
         }
     }
@@ -26,6 +27,6 @@ public class Fire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4010674239044319897}
   m_Layer: 0
   m_Name: MapCanDestroyWallCube_Normal
-  m_TagString: MapCanDestroyWallCube_Normal
+  m_TagString: CanDestroyWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

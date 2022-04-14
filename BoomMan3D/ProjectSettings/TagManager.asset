@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - MapCanDestroyWallCube_Normal
+  - CanDestroyWall
+  - CannotDestroyWall
   - Fire
   layers:
   - Default
