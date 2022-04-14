@@ -1,35 +1,34 @@
 
 using UnityEngine;
-using static UnityEngine.Object;
 using static ConstantsSpace.Constants;
 namespace BoomManHelper
 {
-    class CreateMapHelper 
+    class CreateMapHelper : MonoBehaviour
     {
 
-        private GameObject map;
         private GameObject mapFloorContain;
         private GameObject aroundWallContain;
 
         private GameObject wallOnTheFloorContain;
-        CreateMapHelper(GameObject map)
-        {
-            this.map = map;
+  
+        void Start(){
+            // createCannotDestroyWallAndFloor();
         }
+
         public void createCannotDestroyWallAndFloor()
         {
             mapFloorContain = new GameObject();
             mapFloorContain.name = "MapFloorContain";
-            mapFloorContain.transform.SetParent(map.transform);
+            mapFloorContain.transform.SetParent(this.transform);
 
             aroundWallContain = new GameObject();
             aroundWallContain.name = "AroundWallContain";
-            aroundWallContain.transform.SetParent(map.transform);
+            aroundWallContain.transform.SetParent(this.transform);
 
 
             wallOnTheFloorContain = new GameObject();
             wallOnTheFloorContain.name = "WallOnTheFloorContain";
-            wallOnTheFloorContain.transform.SetParent(map.transform);
+            wallOnTheFloorContain.transform.SetParent(this.transform);
             for (int i = 1; i <= FLOOR_WIDTH_NUM; i++)
             {
                 createCannotDestroyColWallAndFloor(i);

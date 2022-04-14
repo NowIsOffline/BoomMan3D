@@ -7,13 +7,14 @@ using Player;
 public class Main : MonoBehaviour
 {
     // Use this for initialization
-    private PlayerController playerController;
+          private GameObject player;
     void Awake()
     {
     }
     void Start()
     {
-        this.playerController = new PlayerController();
+      player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(0f, 0f, 0f),
+        Quaternion.identity);
     }
     // Update is called once per frame
     void Update()
@@ -22,6 +23,6 @@ public class Main : MonoBehaviour
     }
     void FixedUpdate()
     {
-        this.playerController.MovePlayer();
+     
     }
 }
