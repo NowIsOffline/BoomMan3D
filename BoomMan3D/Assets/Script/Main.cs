@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using ConstantsSpace;
 using Player;
+using BoomResource;
+
 public class Main : MonoBehaviour
 {
     // Use this for initialization
@@ -13,7 +15,7 @@ public class Main : MonoBehaviour
     }
     void Start()
     {
-      player = (GameObject)Instantiate(Resources.Load(Constants.PLAYER_PREFAB_PATH), new Vector3(0f, 0f, 0f),
+      player = (GameObject)Instantiate( PrefabsResource.Instance.LoadResource(Constants.PLAYER_PREFAB_PATH), new Vector3(0f, 0f, 0f),
         Quaternion.identity);
     }
     // Update is called once per frame

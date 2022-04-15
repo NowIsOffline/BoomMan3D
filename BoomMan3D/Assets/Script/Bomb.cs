@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ConstantsSpace;
 using UnityEngine;
+using BoomResource;
 
 public class Bomb : MonoBehaviour
 {
@@ -10,15 +11,21 @@ public class Bomb : MonoBehaviour
     private const int FIRE_RANGE = 3;
     private const int MAX_DIRACT_NUM = 4;
     public GameObject[] CannotDestroyWall;
-   public GameObject[] CanDestroyWall;
-
-   public  int BoomTime = 0;
+    public GameObject[] CanDestroyWall;
+    private bool isBoomed= false;
+    public int BoomTime = 0;
     void Start()
     {
-        prefabs_Fire = Resources.Load(Constants.FIRE_PREFAB_PATH);
+        prefabs_Fire = PrefabsResource.Instance.LoadResource(Constants.FIRE_PREFAB_PATH);
         CannotDestroyWall = GameObject.FindGameObjectsWithTag("CannotDestroyWall");
         StartCoroutine("StartBoom");
-   
+    }
+
+    private void OnTriggerEnter(Collider other){
+        if (other.tag == "Fire")
+        {
+            Boom();
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -30,6 +37,16 @@ public class Bomb : MonoBehaviour
     IEnumerator StartBoom()
     {
         yield return new WaitForSeconds(1.5f);
+       
+        Boom();
+    }
+
+    void Boom()
+    {
+        if(isBoomed){
+            return;
+        }
+        isBoomed=true;
         Destroy(this.gameObject);
         CanDestroyWall = GameObject.FindGameObjectsWithTag("CanDestroyWall");//能破坏的墙每次都要查询一次
         BoomTime++;
@@ -80,7 +97,8 @@ public class Bomb : MonoBehaviour
     {
         for (int i = 0; i < CannotDestroyWall.Length; i++)
         {
-            if(pointsDistance(startPos,CannotDestroyWall[i].transform.position)<1){
+            if (startPos.Equals(CannotDestroyWall[i].transform.position))
+            {
                 return true;
             }
         }
@@ -92,7 +110,8 @@ public class Bomb : MonoBehaviour
 
         for (int i = 0; i < CanDestroyWall.Length; i++)
         {
-            if(pointsDistance(startPos,CanDestroyWall[i].transform.position)<1){
+            if (startPos.Equals(CanDestroyWall[i].transform.position))
+            {
                 return true;
             }
         }

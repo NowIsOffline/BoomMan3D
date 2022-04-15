@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using ConstantsSpace;
 using static ConstantsSpace.PlayerConstants;
+using BoomResource;
+
 namespace Player
 {
     class NeedCreateBomb
@@ -18,21 +20,20 @@ namespace Player
     class PlayerController : MonoBehaviour
     {
         private UnityEngine.Object prefabs_Bomb;
-        private const float CREATE_BOMB_SEC = .5f;
+        private const float CREATE_BOMB_SEC = 1f;
+        private float nowSec = 0f;
         private GameObject _playerLayer;
         private GameObject _boomLayer;
 
         private GameObject _initPos;
 
-        private List<NeedCreateBomb> _bombArray;
         private Rigidbody playerRigidBody;
         void Start()
         {
-            prefabs_Bomb=Resources.Load(Constants.BOMB_PREFAB_PATH);
+            prefabs_Bomb= PrefabsResource.Instance.LoadResource(Constants.BOMB_PREFAB_PATH);
             this._playerLayer = GameObject.Find("PlayerLayer");
             this._boomLayer = GameObject.Find("BombLayer");
             this._initPos = GameObject.Find("PlayerInitPos_0");
-            this._bombArray = new List<NeedCreateBomb>();
 
             transform.SetParent(this._playerLayer.transform);
             transform.localEulerAngles = new Vector3(transform.rotation.x, transform.rotation.y + 90,
@@ -41,18 +42,11 @@ namespace Player
             playerRigidBody = GetComponent<Rigidbody>();
             playerRigidBody.freezeRotation = true;//静止碰撞旋转
 
-            InvokeRepeating("createBomb", .1f, CREATE_BOMB_SEC);
+            InvokeRepeating("startTime", .1f, 1);
         }
-        void createBomb()
+        void startTime()
         {
-            if (this._bombArray != null && this._bombArray.Count > 0)
-            {
-                var startPos = this._bombArray[0].createPos;
-                this._bombArray.RemoveAt(0);
-                GameObject Bomb = (GameObject)Instantiate(prefabs_Bomb, startPos,
-                           Quaternion.identity);
-                Bomb.transform.SetParent(this._boomLayer.transform);
-            }
+            nowSec++;
         }
         void initPlayerPos()
         {
@@ -87,26 +81,17 @@ namespace Player
             this.MovePlayer();
             if (Input.GetKey(KeyCode.Space))
             {
-                if(this._bombArray==null){
+                if(nowSec<CREATE_BOMB_SEC){
                     return;
                 }
+                nowSec=0f;
                 Vector3 startPos = this.transform.position;
                 startPos.x = (float)Math.Round(startPos.x);
                 startPos.y = (float)Math.Round(startPos.y);
                 startPos.z = (float)Math.Round(startPos.z);
-                int bombArrLength = this._bombArray.Count;
-                for(int i=0;i<bombArrLength;i++){
-                    Vector3 createPos = this._bombArray[i].createPos;
-                    if(createPos.Equals(startPos)){
-                        return;
-                    }
-                }
-                if (bombArrLength >= 2)
-                {
-                    this._bombArray.RemoveAt(0);
-                }
-  
-                this._bombArray.Add(new NeedCreateBomb(startPos));
+                  GameObject Bomb = (GameObject)Instantiate(prefabs_Bomb, startPos,
+                           Quaternion.identity);
+                Bomb.transform.SetParent(this._boomLayer.transform);
             }
         }
     }
