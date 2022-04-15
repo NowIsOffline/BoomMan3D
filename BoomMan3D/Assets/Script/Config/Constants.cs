@@ -13,6 +13,7 @@ namespace ConstantsSpace
     static class Constants
     {
         public const string PLAYER_PREFAB_PATH = "Prefabs/Player";
+        public const string ENEMY_PREFAB_PATH = "Prefabs/Enemy";
         public const string BOMB_PREFAB_PATH = "Prefabs/Bomb";
         public const string CAN_DESTROY_WALL_PREFAB_PATH = "Prefabs/MapCanDestroyWallCube_Normal";
         public const string CAN_NOT_DESTROY_WALL_PREFAB_PATH = "Prefabs/MapCannotDestroyWallCube_Normal";
@@ -24,5 +25,5 @@ namespace ConstantsSpace
         public const float PLAYER_MOVE_SPEED = 0.1f;
     }
 
-    
+
 }

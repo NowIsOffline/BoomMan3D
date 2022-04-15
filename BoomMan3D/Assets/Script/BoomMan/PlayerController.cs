@@ -5,55 +5,17 @@ using UnityEngine;
 using ConstantsSpace;
 using static ConstantsSpace.PlayerConstants;
 using BoomResource;
-
-namespace Player
+namespace BoomMan
 {
-    class NeedCreateBomb
+    class PlayerController : BoomManBase
     {
-        public Vector3 createPos { get; }
-
-        public NeedCreateBomb(Vector3 createPos)
+        protected override void initData()
         {
-            this.createPos = createPos;
-        }
-    }
-    class PlayerController : MonoBehaviour
-    {
-        private UnityEngine.Object prefabs_Bomb;
-        private const float CREATE_BOMB_SEC = 1f;
-        private float nowSec = 0f;
-        private GameObject _playerLayer;
-        private GameObject _boomLayer;
-
-        private GameObject _initPos;
-
-        private Rigidbody playerRigidBody;
-        void Start()
-        {
-            prefabs_Bomb= PrefabsResource.Instance.LoadResource(Constants.BOMB_PREFAB_PATH);
             this._playerLayer = GameObject.Find("PlayerLayer");
             this._boomLayer = GameObject.Find("BombLayer");
             this._initPos = GameObject.Find("PlayerInitPos_0");
-
-            transform.SetParent(this._playerLayer.transform);
-            transform.localEulerAngles = new Vector3(transform.rotation.x, transform.rotation.y + 90,
-             transform.rotation.z);
-            initPlayerPos();
-            playerRigidBody = GetComponent<Rigidbody>();
-            playerRigidBody.freezeRotation = true;//静止碰撞旋转
-
-            InvokeRepeating("startTime", .1f, 1);
         }
-        void startTime()
-        {
-            nowSec++;
-        }
-        void initPlayerPos()
-        {
-            this.gameObject.transform.position = new Vector3(this._initPos.transform.position.x,
-                this._initPos.transform.position.y, this._initPos.transform.position.z);
-        }
-        void MovePlayer()
+        protected override void MoveBoomMan()
         {
             float v = Input.GetAxis("Vertical");
             float h = Input.GetAxis("Horizontal");
@@ -76,21 +38,22 @@ namespace Player
                 transform.rotation = Quaternion.Slerp(transform.rotation, q, 10f * Time.deltaTime);
             }
         }
-        void FixedUpdate()
+
+        protected override void checkCreateBoom()
         {
-            this.MovePlayer();
             if (Input.GetKey(KeyCode.Space))
             {
-                if(nowSec<CREATE_BOMB_SEC){
+                if (nowSec < CREATE_BOMB_SEC)
+                {
                     return;
                 }
-                nowSec=0f;
+                nowSec = 0f;
                 Vector3 startPos = this.transform.position;
                 startPos.x = (float)Math.Round(startPos.x);
                 startPos.y = (float)Math.Round(startPos.y);
                 startPos.z = (float)Math.Round(startPos.z);
-                  GameObject Bomb = (GameObject)Instantiate(prefabs_Bomb, startPos,
-                           Quaternion.identity);
+                GameObject Bomb = (GameObject)Instantiate(prefabs_Bomb, startPos,
+                         Quaternion.identity);
                 Bomb.transform.SetParent(this._boomLayer.transform);
             }
         }

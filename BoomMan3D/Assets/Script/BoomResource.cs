@@ -16,10 +16,10 @@ namespace BoomResource
         public Object LoadResource(string path)
         {
             Object resource=getResource(path);
-            Debug.Log(path);
             if(resource!=null){
                 return resource;
             }
+            Debug.Log(path);
             this.resourceArr.Add(path);
             resource = Resources.Load(path);
             this.resourceArr.Add(resource);
