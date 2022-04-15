@@ -22,11 +22,9 @@ namespace BoomMan
         protected UnityEngine.Object prefabs_Bomb;
         protected GameObject _playerLayer;
         protected GameObject _boomLayer;
-        protected const float CREATE_BOMB_SEC = 1f;
+        protected const float CREATE_BOMB_SEC = .1f;
         protected float nowSec = 0f;
-
         protected GameObject _initPos;
-
         protected Rigidbody playerRigidBody;
         void Start()
         {
@@ -51,7 +49,7 @@ namespace BoomMan
         }
         void startTime()
         {
-            nowSec+=.5f;
+            nowSec += .5f;
         }
         void initPlayerPos()
         {
