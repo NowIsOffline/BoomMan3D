@@ -7,14 +7,16 @@ TagManager:
   - CanDestroyWall
   - CannotDestroyWall
   - Fire
+  - Obstacle
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
+  - Wall
   - 
   - 
   - 

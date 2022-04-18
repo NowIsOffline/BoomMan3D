@@ -12,6 +12,7 @@ namespace BoomMan
         protected override void initData()
         {
             this._playerLayer = GameObject.Find("PlayerLayer");
+            this.name = "player";
             this._boomLayer = GameObject.Find("BombLayer");
             this._initPos = GameObject.Find("PlayerInitPos_0");
         }
@@ -43,18 +44,11 @@ namespace BoomMan
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                if (nowSec < CREATE_BOMB_SEC)
+                if (this.IsMaxBoomNum())
                 {
                     return;
                 }
-                nowSec = 0f;
-                Vector3 startPos = this.transform.position;
-                startPos.x = (float)Math.Round(startPos.x);
-                startPos.y = (float)Math.Round(startPos.y);
-                startPos.z = (float)Math.Round(startPos.z);
-                GameObject Bomb = (GameObject)Instantiate(prefabs_Bomb, startPos,
-                         Quaternion.identity);
-                Bomb.transform.SetParent(this._boomLayer.transform);
+                this.startBoom();
             }
         }
     }

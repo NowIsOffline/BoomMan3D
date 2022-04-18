@@ -74,14 +74,14 @@ namespace BoomManHelper
         }
         void createCanDestroyWall(int col, int row)
         {
-            GameObject cube = (GameObject)Instantiate(prefabs_canDestroy, new Vector3(col * 1, 2, row * 1),
+            GameObject cube = (GameObject)Instantiate(prefabs_canDestroy, new Vector3(col * 1, 0, row * 1),
                     Quaternion.identity);
             cube.transform.SetParent(canDestroyWallContain.transform);
         }
 
         void createWallOnTheFloor(int col, int row)
         {
-            GameObject cube = (GameObject)Instantiate(prefabs_canNotDestroy, new Vector3(col * 1, 2, row * 1),
+            GameObject cube = (GameObject)Instantiate(prefabs_canNotDestroy, new Vector3(col * 1, 0, row * 1),
                     Quaternion.identity);
             cube.transform.SetParent(canNotDestroyWallContain.transform);
         }
@@ -90,7 +90,7 @@ namespace BoomManHelper
         {
             for (int i = 1; i <= AROUND_WALL_HEIGHT_NUM; i++)
             {
-                GameObject cube2 = (GameObject)Instantiate(prefabs_canNotDestroy, new Vector3(col * 1, i * 1 + 1, row * 1),
+                GameObject cube2 = (GameObject)Instantiate(prefabs_canNotDestroy, new Vector3(col * 1, i * 1-1, row * 1),
                 Quaternion.identity);
                 cube2.transform.SetParent(aroundWallContain.transform);
             }
@@ -99,7 +99,7 @@ namespace BoomManHelper
 
         void createFloor(int col, int row)
         {
-            GameObject cube = (GameObject)Instantiate(prefabs_floor, new Vector3(col * 1, 1, row * 1),
+            GameObject cube = (GameObject)Instantiate(prefabs_floor, new Vector3(col * 1, -1, row * 1),
             Quaternion.identity);
             cube.name = "MapFloorCube_" + col + "_" + row;
             cube.transform.SetParent(mapFloorContain.transform);

@@ -22,15 +22,29 @@ namespace BoomMan
         protected UnityEngine.Object prefabs_Bomb;
         protected GameObject _playerLayer;
         protected GameObject _boomLayer;
-        protected const float CREATE_BOMB_SEC = .1f;
-        protected float nowSec = 0f;
+        private float maxExistNum = 1;
         protected GameObject _initPos;
         protected Rigidbody playerRigidBody;
+        protected int type = 1;
         void Start()
         {
             prefabs_Bomb = PrefabsResource.Instance.LoadResource(Constants.BOMB_PREFAB_PATH);
             initData();
             AddToStage();
+        }
+
+        protected float nowBoomNum()
+        {
+            int count = 0;
+            for (int i = 0; i < this._boomLayer.transform.childCount; i++)
+            {
+                GameObject bomb = this._boomLayer.transform.GetChild(i).gameObject;
+                if (bomb.name.IndexOf("Bomb_"+type) != -1)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         protected virtual void initData()
@@ -45,12 +59,8 @@ namespace BoomMan
             initPlayerPos();
             playerRigidBody = GetComponent<Rigidbody>();
             playerRigidBody.freezeRotation = true;//静止碰撞旋转
-            InvokeRepeating("startTime", .1f, .5f);
         }
-        void startTime()
-        {
-            nowSec += .5f;
-        }
+
         void initPlayerPos()
         {
             this.gameObject.transform.position = new Vector3(this._initPos.transform.position.x,
@@ -64,10 +74,27 @@ namespace BoomMan
         protected virtual void MoveBoomMan()
         {
         }
-
+        protected void startBoom()
+        {
+            Vector3 startPos = this.transform.position;
+            startPos.x = (float)Math.Round(startPos.x);
+            startPos.y = (float)Math.Round(startPos.y);
+            startPos.z = (float)Math.Round(startPos.z);
+            GameObject Bomb = (GameObject)Instantiate(prefabs_Bomb, startPos,
+                     Quaternion.identity);
+            Bomb.transform.SetParent(this._boomLayer.transform);
+            Bomb.name = "Bomb_" + type;
+        }
         protected virtual void checkCreateBoom()
         {
 
         }
+
+        protected bool IsMaxBoomNum()
+        {
+            return nowBoomNum() >= maxExistNum;
+        }
+
+
     }
 }

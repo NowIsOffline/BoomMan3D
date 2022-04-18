@@ -16,7 +16,7 @@ public class Bomb : MonoBehaviour
     public int BoomTime = 0;
     void Start()
     {
-       
+
         StartCoroutine("StartBoom");
     }
 
@@ -46,6 +46,7 @@ public class Bomb : MonoBehaviour
         {
             return;
         }
+        AstarPath.active.Scan();
         CannotDestroyWall = GameObject.FindGameObjectsWithTag("CannotDestroyWall");
         prefabs_Fire = PrefabsResource.Instance.LoadResource(Constants.FIRE_PREFAB_PATH);
         isBoomed = true;
@@ -94,47 +95,47 @@ public class Bomb : MonoBehaviour
             fire.transform.SetParent(fireContain.transform);
             if (checkHitCanDestroyWall(startPos) || directIndex < 0)
             {
-            return;
+                return;
+            }
+
         }
-
     }
-}
 
-private bool checkHitCannotDestroyWall(Vector3 startPos)
-{
-    for (int i = 0; i < CannotDestroyWall.Length; i++)
+    private bool checkHitCannotDestroyWall(Vector3 startPos)
     {
-        if (startPos.Equals(CannotDestroyWall[i].transform.position))
+        for (int i = 0; i < CannotDestroyWall.Length; i++)
         {
-            return true;
+            if (startPos.Equals(CannotDestroyWall[i].transform.position))
+            {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
 
-private bool checkHitCanDestroyWall(Vector3 startPos)
-{
-
-    for (int i = 0; i < CanDestroyWall.Length; i++)
+    private bool checkHitCanDestroyWall(Vector3 startPos)
     {
-        if (startPos.Equals(CanDestroyWall[i].transform.position))
+
+        for (int i = 0; i < CanDestroyWall.Length; i++)
         {
-            return true;
+            if (startPos.Equals(CanDestroyWall[i].transform.position))
+            {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
 
-private double pointsDistance(Vector3 pos1, Vector3 pos2)
-{
-    double dSquareSum = 0;
-    dSquareSum = Mathf.Pow(pos1.x - pos2.x, 2) + Mathf.Pow(pos1.y - pos2.y, 2);
-    dSquareSum += Mathf.Pow(pos1.z - pos2.z, 2);
-    return System.Math.Sqrt(dSquareSum);
-}
-// Update is called once per frame
-void Update()
-{
+    private double pointsDistance(Vector3 pos1, Vector3 pos2)
+    {
+        double dSquareSum = 0;
+        dSquareSum = Mathf.Pow(pos1.x - pos2.x, 2) + Mathf.Pow(pos1.y - pos2.y, 2);
+        dSquareSum += Mathf.Pow(pos1.z - pos2.z, 2);
+        return System.Math.Sqrt(dSquareSum);
+    }
+    // Update is called once per frame
+    void Update()
+    {
 
-}
+    }
 }

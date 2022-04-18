@@ -22,7 +22,7 @@ namespace ConstantsSpace
     }
     static class PlayerConstants
     {
-        public const float PLAYER_MOVE_SPEED = 0.1f;
+        public const float PLAYER_MOVE_SPEED = 0.2f;
     }
 
 
