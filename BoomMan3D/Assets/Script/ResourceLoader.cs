@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-namespace BoomResource
+namespace ResourceLoader
 {
     public sealed class PrefabsResource
     {

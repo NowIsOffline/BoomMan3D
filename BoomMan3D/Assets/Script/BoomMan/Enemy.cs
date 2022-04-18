@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ConstantsSpace;
-using BoomResource;
+using ResourceLoader;
 using Pathfinding;
 
 namespace BoomMan

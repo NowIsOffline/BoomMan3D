@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ConstantsSpace;
 using UnityEngine;
-using BoomResource;
+using ResourceLoader;
 
 public class Bomb : MonoBehaviour
 {

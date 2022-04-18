@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ConstantsSpace;
 using static ConstantsSpace.PlayerConstants;
-using BoomResource;
+using ResourceLoader;
 
 namespace BoomMan
 {
