@@ -12,8 +12,8 @@ namespace BoomMan
         protected override void initData()
         {
             this._playerLayer = GameObject.Find("PlayerLayer");
-            this.name = "player";
-            this._boomLayer = GameObject.Find("BombLayer");
+            this.name = "Player";
+            this._bombLayer = GameObject.Find("BombLayer");
             this._initPos = GameObject.Find("PlayerInitPos_0");
         }
         protected override void MoveBoomMan()
@@ -40,16 +40,17 @@ namespace BoomMan
             }
         }
 
-        protected override void checkCreateBoom()
+        protected override bool checkCreateBoom()
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                if (this.IsMaxBoomNum())
+                if (!this.IsMaxBoomNum())
                 {
-                    return;
+                    return true;
                 }
-                this.startBoom();
+
             }
+            return false;
         }
     }
 }

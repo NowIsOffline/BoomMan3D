@@ -4,6 +4,20 @@ using ConstantsSpace;
 using static ConstantsSpace.WallConstants;
 namespace BoomManHelper
 {
+    class Path_Helper
+    {
+        private Path_Helper _instance;
+        public Path_Helper getInstance()
+        {
+            if (this._instance == null)
+            {
+                this._instance = new Path_Helper();
+            }
+            return this._instance;
+        }
+
+    
+    }
     class CreateMapHelper : MonoBehaviour
     {
 
@@ -90,7 +104,7 @@ namespace BoomManHelper
         {
             for (int i = 1; i <= AROUND_WALL_HEIGHT_NUM; i++)
             {
-                GameObject cube2 = (GameObject)Instantiate(prefabs_canNotDestroy, new Vector3(col * 1, i * 1-1, row * 1),
+                GameObject cube2 = (GameObject)Instantiate(prefabs_canNotDestroy, new Vector3(col * 1, i * 1 - 1, row * 1),
                 Quaternion.identity);
                 cube2.transform.SetParent(aroundWallContain.transform);
             }

@@ -8,16 +8,33 @@ public class Bomb : MonoBehaviour
 {
     // Start is called before the first frame update
     private Object prefabs_Fire;
-    private const int FIRE_RANGE = 3;
+    private const int FIRE_RANGE = 1;
     private const int MAX_DIRACT_NUM = 4;
     public GameObject[] CannotDestroyWall;
     public GameObject[] CanDestroyWall;
+
+    private ArrayList _firePos;
     private bool isBoomed = false;
-    public int BoomTime = 0;
     void Start()
     {
-
         StartCoroutine("StartBoom");
+    }
+
+    public ArrayList getFirePos(){
+        this.updateFirePosArray();
+        return this._firePos;
+    }
+    public bool isDangePos(Vector3 pos)
+    {
+        this.updateFirePosArray();
+        for (int i = 0; i < this._firePos.Count; i++)
+        {
+            if (pos.Equals(this._firePos[i]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,6 +49,8 @@ public class Bomb : MonoBehaviour
     {
         Collider bombCollider = GetComponent<Collider>();
         bombCollider.isTrigger = false;
+        this.gameObject.layer = 6;
+        AstarPath.active.Scan();
     }
 
     IEnumerator StartBoom()
@@ -52,17 +71,32 @@ public class Bomb : MonoBehaviour
         isBoomed = true;
         Destroy(this.gameObject);
         CanDestroyWall = GameObject.FindGameObjectsWithTag("CanDestroyWall");//能破坏的墙每次都要查询一次
-        BoomTime++;
-        createFire(-1);
-        for (int i = 0; i < MAX_DIRACT_NUM; i++)
+        this.updateFirePosArray();
+        GameObject fireContain = GameObject.Find("FireContain");
+        for (int i = 0; i < this._firePos.Count; i++)
         {
-            createFire(i);
+            GameObject fire = (GameObject)Instantiate(prefabs_Fire, (Vector3)this._firePos[i],
+              Quaternion.identity);
+            fire.transform.SetParent(fireContain.transform);
         }
     }
 
-    private void createFire(int directIndex)
+    private void updateFirePosArray()
     {
-        GameObject fireContain = GameObject.Find("FireContain"); ;
+        if (_firePos == null)
+        {
+            _firePos = new ArrayList();
+
+        }
+        _firePos.Clear();
+        for (int i = -1; i < MAX_DIRACT_NUM; i++)
+        {
+            GetFirePos(i);
+        }
+    }
+
+    private void GetFirePos(int directIndex)
+    {
         for (int i = 0; i < FIRE_RANGE; i++)
         {
             Vector3 startPos = this.gameObject.transform.position;
@@ -85,19 +119,11 @@ public class Bomb : MonoBehaviour
             {
                 return;
             }
-            if (prefabs_Fire == null)
-            {
-                Debug.LogError("Fire = null");
-                return;
-            }
-            GameObject fire = (GameObject)Instantiate(prefabs_Fire, startPos,
-       Quaternion.identity);
-            fire.transform.SetParent(fireContain.transform);
-            if (checkHitCanDestroyWall(startPos) || directIndex < 0)
+            this._firePos.Add(startPos);
+            if (checkHitCanDestroyWall(startPos) || directIndex == -1)
             {
                 return;
             }
-
         }
     }
 
@@ -126,13 +152,6 @@ public class Bomb : MonoBehaviour
         return false;
     }
 
-    private double pointsDistance(Vector3 pos1, Vector3 pos2)
-    {
-        double dSquareSum = 0;
-        dSquareSum = Mathf.Pow(pos1.x - pos2.x, 2) + Mathf.Pow(pos1.y - pos2.y, 2);
-        dSquareSum += Mathf.Pow(pos1.z - pos2.z, 2);
-        return System.Math.Sqrt(dSquareSum);
-    }
     // Update is called once per frame
     void Update()
     {
