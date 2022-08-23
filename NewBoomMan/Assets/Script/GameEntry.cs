@@ -9,14 +9,18 @@ public class GameEntry : MonoBehaviour
     public int MAP_WIDTH_NUM = 21;
     public int MAP_HEIGHT_NUM = 21;
     private int[] mapData;
+
     private GameObject mapFloorPrefabs;
     private GameObject mapWallPrefabs;
+    private GameObject playerPrefabs;
     private GameObject mapFloorContain;
     private GameObject mapWallContain;
+    private GameObject player;
     void Awake()
     {
         mapFloorPrefabs = Resources.Load(PathConst.RESOURE_MAP_FLOOR[0]) as GameObject;
         mapWallPrefabs = Resources.Load(PathConst.RESOURCE_MAP_WALL[0]) as GameObject;
+        playerPrefabs = Resources.Load(PathConst.PLAYER_PREFABS_PATH) as GameObject;
     }
     void Start()
     {
@@ -45,6 +49,10 @@ public class GameEntry : MonoBehaviour
                 mapWall.transform.localPosition = new Vector3(row, 1, col);
                 mapWall.name = "MapWall_" + row + "_" + col;
                 mapWall.transform.parent = mapWallContain.transform;
+            }
+            if(row == col && row ==1){
+                player = GameObject.Instantiate(playerPrefabs);
+                mapFloorBlock.transform.localPosition = new Vector3(row, 1, col);
             }
         }
 

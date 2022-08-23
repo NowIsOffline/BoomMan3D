@@ -20,8 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9bfefc4f-dfd0-47a6-850c-6f5c3235d7d9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lua/Game/GameEntry.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Lua/Game/GameEntry.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Lua/Main.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Lua/Main.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ProjectSettings/PackageManagerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../ProjectSettings/PackageManagerSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1661153577107</updated>
       <workItem from="1661153578360" duration="4657000" />
-      <workItem from="1661220089883" duration="97000" />
+      <workItem from="1661220089883" duration="753000" />
     </task>
     <servers />
   </component>
