@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     private bool isInit = false;
     private Animator animator = null;
     private bool nowRunState = false;
+
+    private CharacterController characterController;
+
     void Awake()
     {
 
@@ -20,16 +23,18 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void SetData(int index,Vector3 initPos)
+    public void SetData(int index, Vector3 initPos)
     {
-        transform.localPosition = initPos;
+    
         modelIndex = index;
+        characterController = GameObject.Find("playerModel").GetComponent<CharacterController>();
         playerModelPrefabs = Resources.Load(PathConst.PLAYER_MODEL_PATH[modelIndex]) as GameObject;
         playerModel = GameObject.Instantiate(playerModelPrefabs);
         playerModel.transform.parent = GameObject.Find("playerModel").transform;
         float scale = (float)1 / 25;
         playerModel.transform.localScale = new Vector3(scale, scale, scale);
         InitAnimator();
+         transform.localPosition = initPos;
         isInit = true;
     }
 
@@ -60,6 +65,9 @@ public class PlayerController : MonoBehaviour
             Vector3 newDir = new Vector3(h, 0, v).normalized;
             playerModel.transform.forward = Vector3.Lerp(playerModel.transform.forward, newDir, 1f);
         }
-
+        if (nowRunState)
+        {
+            characterController.Move(playerModel.transform.forward * PlayerConst.MOVE_SPEED * Time.deltaTime);
+        }
     }
 }

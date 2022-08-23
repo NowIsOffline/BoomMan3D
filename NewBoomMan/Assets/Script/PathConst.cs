@@ -9,7 +9,8 @@ public static class PathConst
     };
 
     public static string[] RESOURCE_MAP_WALL = {
-        MAP_RESOURCE_PATH+"MapWall_0"
+        MAP_RESOURCE_PATH+"MapWall_0",
+        MAP_RESOURCE_PATH+"MapWall_1"
     };
 
     public static string[] PLAYER_MODEL_PATH = {

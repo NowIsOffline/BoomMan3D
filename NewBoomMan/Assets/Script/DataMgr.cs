@@ -34,6 +34,6 @@ public class DataMgr
     }
 
     public void SetMapDataByIndex(int index,int state){
-             mapData[index] = state;
+        mapData[index] = state;
     }
 }
