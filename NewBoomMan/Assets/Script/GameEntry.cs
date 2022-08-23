@@ -10,13 +10,19 @@ public class GameEntry : MonoBehaviour
     public int MAP_HEIGHT_NUM = 21;
     private int[] mapData;
     private GameObject mapFloorPrefabs;
+    private GameObject mapWallPrefabs;
+    private GameObject mapFloorContain;
+    private GameObject mapWallContain;
     void Awake()
     {
-        mapFloorPrefabs = Resources.Load(PathConst.RESOURE_MAP_FLOOR[1]) as GameObject;
+        mapFloorPrefabs = Resources.Load(PathConst.RESOURE_MAP_FLOOR[0]) as GameObject;
+        mapWallPrefabs = Resources.Load(PathConst.RESOURCE_MAP_WALL[0]) as GameObject;
     }
     void Start()
     {
         mapData = new int[MAP_WIDTH_NUM * MAP_HEIGHT_NUM];
+        mapFloorContain = GameObject.Find("MapFloorContainer");
+        mapWallContain = GameObject.Find("MapBlockContainer");
         InitMapData();
         LoadMap();
     }
@@ -30,6 +36,16 @@ public class GameEntry : MonoBehaviour
             int col = i % MAP_WIDTH_NUM;
             var mapFloorBlock = GameObject.Instantiate(mapFloorPrefabs);
             mapFloorBlock.transform.localPosition = new Vector3(row, 0, col);
+            mapFloorBlock.name = "MapFLoorBlock_" + i;
+            mapFloorBlock.transform.parent = mapFloorContain.transform;
+            int mapState = mapData[i];
+            if (mapState == FLOOR_STATE_FLOOR)
+            {
+                var mapWall = GameObject.Instantiate(mapWallPrefabs);
+                mapWall.transform.localPosition = new Vector3(row, 1, col);
+                mapWall.name = "MapWall_" + row + "_" + col;
+                mapWall.transform.parent = mapWallContain.transform;
+            }
         }
 
     }
@@ -47,7 +63,7 @@ public class GameEntry : MonoBehaviour
         for (int i = 0; i < MAP_WIDTH_NUM; i++)
         {
             int mapState = 0;
-            if (row % 2 != 0 || i % 2 != 0)
+            if (row % 2 != 0 && i % 2 != 0)
             {
                 mapState = FLOOR_STATE_FLOOR;
             }
