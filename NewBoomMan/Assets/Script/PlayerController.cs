@@ -20,8 +20,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void SetData(int index)
+    public void SetData(int index,Vector3 initPos)
     {
+        transform.localPosition = initPos;
         modelIndex = index;
         playerModelPrefabs = Resources.Load(PathConst.PLAYER_MODEL_PATH[modelIndex]) as GameObject;
         playerModel = GameObject.Instantiate(playerModelPrefabs);

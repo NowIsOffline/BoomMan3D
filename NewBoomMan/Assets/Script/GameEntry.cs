@@ -53,8 +53,7 @@ public class GameEntry : MonoBehaviour
             if(row == col && row == 1){
                 player = GameObject.Instantiate(playerPrefabs);
                 PlayerController controller = player.GetComponent<PlayerController>();
-                controller.SetData(PlayerConst.PIKACHU_INDEX);
-                mapFloorBlock.transform.localPosition = new Vector3(row, 1, col);
+                controller.SetData(PlayerConst.PIKACHU_INDEX,new Vector3(0, 1, 0));
             }
         }
 
