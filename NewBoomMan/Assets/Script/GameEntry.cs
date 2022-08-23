@@ -50,8 +50,10 @@ public class GameEntry : MonoBehaviour
                 mapWall.name = "MapWall_" + row + "_" + col;
                 mapWall.transform.parent = mapWallContain.transform;
             }
-            if(row == col && row ==1){
+            if(row == col && row == 1){
                 player = GameObject.Instantiate(playerPrefabs);
+                PlayerController controller = player.GetComponent<PlayerController>();
+                controller.SetData(PlayerConst.PIKACHU_INDEX);
                 mapFloorBlock.transform.localPosition = new Vector3(row, 1, col);
             }
         }
