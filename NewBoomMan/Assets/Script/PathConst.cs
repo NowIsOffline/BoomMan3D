@@ -12,8 +12,4 @@ public static class PathConst
         MAP_RESOURCE_PATH+"MapWall_0",
         MAP_RESOURCE_PATH+"MapWall_1"
     };
-
-    public static string[] PLAYER_MODEL_PATH = {
-        PLAYER_RESOURCE_PATH+"Pikachu/Pikachu"
-    };
 }

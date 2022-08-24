@@ -56,12 +56,27 @@ public class GameEntry : MonoBehaviour
             }
             if (row == col && row == 1)
             {
-                player = GameObject.Instantiate(playerPrefabs);
-                PlayerController controller = player.GetComponent<PlayerController>();
-                controller.SetData(PlayerConst.PIKACHU_INDEX, new Vector3(1, 1, 1));
+                // InitPlayer();
+                InitEmery();
             }
         }
 
+    }
+
+    void InitEmery()
+    {
+        player = GameObject.Instantiate(playerPrefabs);
+        player.AddComponent<EnemyController>();
+        EnemyController controller = player.GetComponent<EnemyController>();
+        controller.SetData(ModelConfig.MEWTWO_INDEX, new Vector3(1, 1, 1));
+    }
+
+    void InitPlayer()
+    {
+        player = GameObject.Instantiate(playerPrefabs);
+        player.AddComponent<PlayerController>();
+        PlayerController controller = player.GetComponent<PlayerController>();
+        controller.SetData(ModelConfig.PIKACHU_INDEX, new Vector3(1, 1, 1));
     }
 
     void InitMapData()
@@ -77,7 +92,8 @@ public class GameEntry : MonoBehaviour
         for (int i = 0; i < MapConst.MAP_WIDTH_NUM; i++)
         {
             int mapState = 0;
-            if (row == 0 || row == MapConst.MAP_HEIGHT_NUM || i == 0 || i == MapConst.MAP_WIDTH_NUM)
+            if (row == 0 || row == MapConst.MAP_HEIGHT_NUM-1 
+            || i == 0 || i == MapConst.MAP_WIDTH_NUM-1)
             {
                 mapState = MapConst.MAP_STATE_WALL_AROUND;
             }

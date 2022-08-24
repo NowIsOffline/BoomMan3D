@@ -2,48 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : PlayerBase
 {
-    // Start is called before the first frame update
-    private GameObject playerModel;
-    private GameObject playerModelPrefabs;
-    private int modelIndex = 0;
-    private bool isInit = false;
-    private Animator animator = null;
-    private bool nowRunState = false;
-
-    private CharacterController characterController;
-
-    void Awake()
-    {
-
-    }
-    void Start()
-    {
-
-    }
-
-    public void SetData(int index, Vector3 initPos)
-    {
-    
-        modelIndex = index;
-        characterController = GameObject.Find("playerModel").GetComponent<CharacterController>();
-        playerModelPrefabs = Resources.Load(PathConst.PLAYER_MODEL_PATH[modelIndex]) as GameObject;
-        playerModel = GameObject.Instantiate(playerModelPrefabs);
-        playerModel.transform.parent = GameObject.Find("playerModel").transform;
-        float scale = (float)1 / 25;
-        playerModel.transform.localScale = new Vector3(scale, scale, scale);
-        InitAnimator();
-         transform.localPosition = initPos;
-        isInit = true;
-    }
-
-    void InitAnimator()
-    {
-        var model = playerModel.transform.Find("Model");
-        animator = model.GetComponent<Animator>();
-    }
-    // Update is called once per frame
     void Update()
     {
         if (!isInit)
@@ -55,7 +15,7 @@ public class PlayerController : MonoBehaviour
         StartMove(v, h);
     }
 
-    void StartMove(float v, float h)
+     void StartMove(float v, float h)
     {
         bool isRun = Mathf.Abs(v) > 0.01 || Mathf.Abs(h) > 0.01;
         if (isRun != nowRunState)
@@ -63,11 +23,11 @@ public class PlayerController : MonoBehaviour
             nowRunState = isRun;
             animator.SetBool("IsRun", isRun);
             Vector3 newDir = new Vector3(h, 0, v).normalized;
-            playerModel.transform.forward = Vector3.Lerp(playerModel.transform.forward, newDir, 1f);
+            transform.forward = Vector3.Lerp(transform.forward, newDir, 1f);
         }
         if (nowRunState)
         {
-            characterController.Move(playerModel.transform.forward * PlayerConst.MOVE_SPEED * Time.deltaTime);
+            characterController.Move(transform.forward * speed * Time.deltaTime);
         }
     }
 }
