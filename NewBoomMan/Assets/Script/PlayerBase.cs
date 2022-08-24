@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerBase : MonoBehaviour
 {
     protected GameObject playerModel;
-    private GameObject playerModelPrefabs;
     protected bool isInit = false;
     protected Animator animator = null;
     protected bool nowRunState = false;
@@ -22,8 +21,7 @@ public class PlayerBase : MonoBehaviour
     {
         modelConfig = ModelConfig.ModelConfigs[index];
         characterController = GetComponent<CharacterController>();
-        playerModelPrefabs = Resources.Load(modelConfig.ModelPath) as GameObject;
-        playerModel = GameObject.Instantiate(playerModelPrefabs);
+        playerModel = GameObject.Instantiate(Loader.GetInstance().LoadPrefabs(modelConfig.ModelPath));
         playerModel.transform.parent = GameObject.Find("playerModel").transform;
         float scale = modelConfig.ModelScale;
         playerModel.transform.localScale = new Vector3(scale, scale, scale);
