@@ -40,11 +40,7 @@ public class EnemyController : PlayerBase
                 transform.forward = Vector3.Lerp(transform.forward, newDir, 1f);
                 characterController.Move(transform.forward * speed * Time.deltaTime);
             }
-            if (isRun != nowRunState)
-            {
-                nowRunState = isRun;
-                animator.SetBool("IsRun", isRun);
-            }
+            ChangeRunState(isRun);
         }
     }
 }

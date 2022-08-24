@@ -11,7 +11,7 @@ public class PlayerBase : MonoBehaviour
     protected bool nowRunState = false;
     protected ModelConfigData modelConfig = null;
     protected CharacterController characterController;
-    protected float speed =  PlayerConst.MOVE_SPEED;
+    protected float speed = PlayerConst.MOVE_SPEED;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,11 +37,20 @@ public class PlayerBase : MonoBehaviour
         var model = playerModel.transform.Find("Model");
         animator = model.GetComponent<Animator>();
     }
+
+    protected void ChangeRunState(bool isRun)
+    {
+        if (isRun != nowRunState)
+        {
+            nowRunState = isRun;
+            animator.SetBool("IsRun", isRun);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
 
     }
 
-  
+
 }

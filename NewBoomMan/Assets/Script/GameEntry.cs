@@ -56,8 +56,8 @@ public class GameEntry : MonoBehaviour
             }
             if (row == col && row == 1)
             {
-                // InitPlayer();
-                InitEmery();
+                InitPlayer();
+                // InitEmery();
             }
         }
 
