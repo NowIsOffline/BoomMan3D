@@ -11,6 +11,11 @@ public class PlayerBase : MonoBehaviour
     protected ModelConfigData modelConfig = null;
     protected CharacterController characterController;
     protected float speed = PlayerConst.MOVE_SPEED;
+
+    private GameObject _bombLayer;
+    protected int _boomIndex =0;
+    protected int _fireIndex =0;
+    protected int _fireRange = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +32,9 @@ public class PlayerBase : MonoBehaviour
         playerModel.transform.localScale = new Vector3(scale, scale, scale);
         InitAnimator();
         transform.localPosition = initPos;
+        _bombLayer = GameObject.Find("BombLayerContainer");
         isInit = true;
+        CreateBomb();
     }
 
     void InitAnimator()
@@ -50,5 +57,10 @@ public class PlayerBase : MonoBehaviour
 
     }
 
-
+    void CreateBomb(){
+        GameObject bombPrefabs =  GameObject.Instantiate(Loader.GetInstance().LoadPrefabs(PathConst.BOMB_CONTAIN_SOURCE_PATH));
+        bombPrefabs.transform.SetParent(_bombLayer.transform);
+        bombPrefabs.GetComponent<Bomb>().SetData(_boomIndex,_fireIndex,_fireRange);
+        bombPrefabs.transform.position = new Vector3(1,1,1);
+    }
 }
