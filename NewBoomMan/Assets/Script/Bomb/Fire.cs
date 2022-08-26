@@ -32,7 +32,7 @@ public class Fire : MonoBehaviour
             return;
         }
         this._passTime += (Time.deltaTime);
-        if (this._passTime >= 3)
+        if (this._passTime >= BombConst.FIRE_EXIST_SEC)
         {
             this._isDestroy = true;
             Destroy(gameObject);

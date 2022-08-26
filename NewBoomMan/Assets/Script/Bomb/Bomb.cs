@@ -10,7 +10,7 @@ public class Bomb : MonoBehaviour
     private int _fireIndex;
     private int _fireRange;
     private GameObject _bombLayer;
-    private float total_time;
+    private float _passTime;
     private bool _isBoom= false;
     public void SetData(int bombIndex, int fireIndex, int fireRange)
     {
@@ -64,8 +64,8 @@ public class Bomb : MonoBehaviour
         {
             return;
         }
-        this.total_time += (Time.deltaTime);
-        if(this.total_time>=3){
+        this._passTime += (Time.deltaTime);
+        if(this._passTime>=BombConst.BOMB_START_BOOM_SEC){
             this.StartBomb();
         }
     }
