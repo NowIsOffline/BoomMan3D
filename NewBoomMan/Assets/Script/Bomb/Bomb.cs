@@ -12,6 +12,7 @@ public class Bomb : MonoBehaviour
     private GameObject _bombLayer;
     private float _passTime;
     private bool _isBoom= false;
+
     public void SetData(int bombIndex, int fireIndex, int fireRange)
     {
         _bombIndex = bombIndex;

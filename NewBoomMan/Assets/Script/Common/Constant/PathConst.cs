@@ -9,7 +9,8 @@ public static class PathConst
 
     public static string[] RESOURCE_MAP_WALL = {
         MAP_RESOURCE_PATH+"MapWall_0",
-        MAP_RESOURCE_PATH+"MapWall_1"
+        MAP_RESOURCE_PATH+"MapWall_1",
+        MAP_RESOURCE_PATH+"MapWall_2"
     };
 
     public static string PLAYER_RESOURCE_PATH = "PlayerResource/";

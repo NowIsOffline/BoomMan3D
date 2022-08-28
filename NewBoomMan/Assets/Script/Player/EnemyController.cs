@@ -15,32 +15,30 @@ public class EnemyController : PlayerBase
         pathList.Add(new Vector3(1, 1, 1));
     }
 
-    // Update is called once per frame
-    void Update()
+ void Update(){
+    if (!isInit)
     {
-        if (!isInit)
+        return;
+    }
+    this._createBoomCd += (Time.deltaTime);
+    if (pathList.Count > 0)
         {
-            return;
-        }
-
-        if (pathList.Count > 0)
-        {
-            Vector3 targetPath = (Vector3)pathList[0];
-            Vector3 offset = targetPath - transform.position;
-            float difficulValue = Mathf.Abs(offset.x) + Mathf.Abs(offset.y) + Mathf.Abs(offset.z);
-            bool isRun = true;
-            if (difficulValue < 0.02)
-            {
-                isRun = false;
-                pathList.RemoveAt(0);
-            }
-            else
-            {
-                Vector3 newDir = offset.normalized;
-                transform.forward = Vector3.Lerp(transform.forward, newDir, 1f);
-                characterController.Move(transform.forward * speed * Time.deltaTime);
-            }
-            ChangeRunState(isRun);
+         Vector3 targetPath = (Vector3)pathList[0];
+         Vector3 offset = targetPath - transform.position;
+         float difficulValue = Mathf.Abs(offset.x) + Mathf.Abs(offset.y) + Mathf.Abs(offset.z);
+         bool isRun = true;
+         if (difficulValue < 0.02)
+         {
+             isRun = false;
+             pathList.RemoveAt(0);
+         }
+         else
+         {
+             Vector3 newDir = offset.normalized;
+             transform.forward = Vector3.Lerp(transform.forward, newDir, 1f);
+             characterController.Move(transform.forward * speed * Time.deltaTime);
+         }
+         ChangeRunState(isRun);
         }
     }
 }

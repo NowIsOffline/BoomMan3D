@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class PlayerController : PlayerBase
 {
-    void Update()
-    {
+    void Update(){
         if (!isInit)
         {
             return;
         }
+        this._createBoomCd += (Time.deltaTime);
         float v = Input.GetAxisRaw("Vertical");
         float h = Input.GetAxisRaw("Horizontal");
         StartMove(v, h);
+        if(Input.GetKeyDown(KeyCode.Space)){
+        
+            CreateBomb();
+        }
     }
-
     void StartMove(float v, float h)
     {
         bool isRun = Mathf.Abs(v) > 0.01 || Mathf.Abs(h) > 0.01;

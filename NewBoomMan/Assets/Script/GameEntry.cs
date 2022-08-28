@@ -48,7 +48,12 @@ public class GameEntry : MonoBehaviour
                 mapWall.transform.localPosition = new Vector3(row, 1, col);
                 mapWall.name = "MapAroundWall_" + row + "_" + col;
                 mapWall.transform.parent = mapWallContain.transform;
-            }
+            }else if(mapState == MapConst.MAP_STATE_CAN_DESTORY_WALL&&(row!=col&&row !=1))      {
+                var mapWall = GameObject.Instantiate(loader.LoadPrefabs(PathConst.RESOURCE_MAP_WALL[2]));
+                mapWall.transform.localPosition = new Vector3(row, 1, col);
+                mapWall.name = "MapCanDestoryWall_" + row + "_" + col;
+                mapWall.transform.parent = mapWallContain.transform;
+            }  
             if (row == col && row == 1)
             {
                 InitPlayer();
@@ -95,6 +100,9 @@ public class GameEntry : MonoBehaviour
             else if (row % 2 == 0 && i % 2 == 0)
             {
                 mapState = MapConst.MAP_STATE_WALL;
+            }
+            else if(Random.Range(0f,1f)>0.5f){
+                mapState = MapConst.MAP_STATE_CAN_DESTORY_WALL;
             }
             DataMgr.GetInstance().SetMapDataByIndex(i + row * MapConst.MAP_WIDTH_NUM, mapState);
         }

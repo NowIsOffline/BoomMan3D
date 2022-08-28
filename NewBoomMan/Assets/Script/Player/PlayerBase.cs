@@ -12,6 +12,7 @@ public class PlayerBase : MonoBehaviour
     protected CharacterController characterController;
     protected float speed = PlayerConst.MOVE_SPEED;
 
+    protected float _createBoomCd = 0f;
     private GameObject _bombLayer;
     protected int _boomIndex =0;
     protected int _fireIndex =0;
@@ -34,7 +35,7 @@ public class PlayerBase : MonoBehaviour
         transform.localPosition = initPos;
         _bombLayer = GameObject.Find("BombLayerContainer");
         isInit = true;
-        CreateBomb();
+
     }
 
     void InitAnimator()
@@ -54,13 +55,20 @@ public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        this._createBoomCd += (Time.deltaTime);
     }
 
-    void CreateBomb(){
+    protected void CreateBomb(){
+        if(this._createBoomCd <PlayerConst.CREATE_BOOM_CD){
+            return;
+        }
+        this._createBoomCd = 0f;
         GameObject bombPrefabs =  GameObject.Instantiate(Loader.GetInstance().LoadPrefabs(PathConst.BOMB_CONTAIN_SOURCE_PATH));
         bombPrefabs.transform.SetParent(_bombLayer.transform);
         bombPrefabs.GetComponent<Bomb>().SetData(_boomIndex,_fireIndex,_fireRange);
-        bombPrefabs.transform.position = new Vector3(1,1,1);
+        Vector3 postion = transform.position;
+        bombPrefabs.transform.position = new Vector3(Helper.RoundToInt(postion.x),Helper.RoundToInt(postion.y),Helper.RoundToInt(postion.z));
     }
+
+  
 }
