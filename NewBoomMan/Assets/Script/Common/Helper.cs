@@ -20,4 +20,8 @@ public static class Helper
         int finalValue = Mathf.FloorToInt(tempValue);
         return finalValue;
     }
+
+    public static bool IsVector3Equal(Vector3 a,Vector3 b){
+        return a.Equals(b);
+    }
 }
