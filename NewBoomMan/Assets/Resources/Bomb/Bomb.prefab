@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 428656}
   - component: {fileID: 3318674}
   - component: {fileID: 2393822}
+  - component: {fileID: -1269474340228872441}
   - component: {fileID: 5407224}
   - component: {fileID: 8248646}
   m_Layer: 0
@@ -88,6 +89,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-1269474340228872441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1fa0ca842619424191aa067086551f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionSound: {fileID: 8300000, guid: a0d438c128020ae419d43d4499594a46, type: 3}
+  explosionPrefab: {fileID: 177540, guid: 69dfce71c987ee94ebd40421847e3c8e, type: 3}
 --- !u!54 &5407224
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -501,7 +516,7 @@ ParticleSystem:
         m_RotationOrder: 0
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -554,7 +569,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -4884,7 +4899,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4990,6 +5004,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 198690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cc8609ace78da3428b3309078187f39, type: 3}
+  m_Script: {fileID: 11500000, guid: a53b9eee621c3b6488ad5f952658b0e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Delay: 3
